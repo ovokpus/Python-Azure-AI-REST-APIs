@@ -1,0 +1,3 @@
+# Streamlit service. It calls the API over HTTP and does not import the API package.
+streamlit==1.41.1
+requests==2.32.3
