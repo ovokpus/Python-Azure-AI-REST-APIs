@@ -125,6 +125,17 @@ Then open:
 | API docs | http://localhost:8000/docs |
 | Health | http://localhost:8000/health |
 
+## Demo
+
+Leave the Azure fields in `.env` empty and walk the running stack once. This is the same path as a local screen recording of the Compose services: the UI, OCR on the sample image, the missing-key message, then the API docs.
+
+1. Open http://localhost:8501. The page title is **Text & OCR Workbench**. One card says Azure Language credentials are not configured and names `AZURE_LANGUAGE_ENDPOINT` and `AZURE_LANGUAGE_KEY`. The other says Tesseract OCR is available.
+2. Open the **Read an image** tab. Choose `samples/ocr-sample.png` and click **Extract text**. The picture sits beside the transcript. On this sample that transcript includes "The quick brown dog jumped over the lazy fox."
+3. Open the **Analyze text** tab. Click **Load example review**, then **Analyze text**. A second card under the button repeats the configuration message. The API returns HTTP 503 and does not call Azure.
+4. Open http://localhost:8000/docs. The Swagger page lists `/health`, `/api/v1/status`, `POST /api/v1/analyze`, and `POST /api/v1/extract_text`.
+
+When you later paste a real endpoint and key into `.env` and run `docker compose up --build` again, step 3 returns sentiment and key phrases instead of that message.
+
 Stop it with Ctrl+C, or `docker compose down` from another terminal.
 
 The first build installs Python dependencies and the `tesseract-ocr` package. Later starts are just container boots.
