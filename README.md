@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.jpg" alt="Braided cables plugged into brass sockets on a dark patch panel" width="100%"></p>
+
 # Python-Azure-AI-REST-APIs
 
 ---
