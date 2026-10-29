@@ -1,0 +1,22 @@
+# Light page, dark text. Loaded when Streamlit is started from the repo root
+# and when the frontend image uses /app as its working directory.
+
+[theme]
+base = "light"
+primaryColor = "#0f4c81"
+backgroundColor = "#f6f3ee"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#1c1917"
+font = "sans serif"
+
+[server]
+headless = true
+address = "0.0.0.0"
+# Matches the API limit in app/ocr.py. Streamlit's default is 200 MB.
+maxUploadSize = 10
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"

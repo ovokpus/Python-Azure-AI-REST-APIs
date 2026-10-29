@@ -1,0 +1,56 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Tesseract
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
+      - name: Install Python dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Boot the stack and smoke-test it
+        run: |
+          docker compose up -d
+          for _ in $(seq 1 30); do
+            curl -fsS http://localhost:8000/health && break
+            sleep 2
+          done
+          curl -fsS http://localhost:8000/health
+          code=$(curl -s -o /tmp/analyze.json -w "%{http_code}" \
+            -X POST http://localhost:8000/api/v1/analyze \
+            -H 'content-type: application/json' \
+            -d '{"text_to_analyze":["hello"]}')
+          test "$code" = "503"
+          grep -q "not configured" /tmp/analyze.json
+          curl -fsS -F "images=@samples/ocr-sample.png" \
+            http://localhost:8000/api/v1/extract_text \
+            | grep -i -q "quick brown"
+          for _ in $(seq 1 30); do
+            curl -fsS http://localhost:8501/_stcore/health && break
+            sleep 2
+          done
+          curl -fsS http://localhost:8501/_stcore/health
+          docker compose down

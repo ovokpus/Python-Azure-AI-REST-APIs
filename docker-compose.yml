@@ -1,0 +1,46 @@
+# Local stack: API on http://localhost:8000 and the UI on http://localhost:8501.
+#
+#   cp .env.example .env    # optional; empty values are fine
+#   docker compose up --build
+#
+# Azure keys are read from .env when that file exists. They are never baked
+# into the images. With no .env, or with blank keys, the API still starts and
+# text analysis answers with a configuration message.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    # Compose reads a project-root .env for ${VAR} substitution. Missing file
+    # or blank values become empty strings, and the API explains that text
+    # analysis needs real credentials. The key is not copied into the image.
+    environment:
+      AZURE_LANGUAGE_ENDPOINT: ${AZURE_LANGUAGE_ENDPOINT:-}
+      AZURE_LANGUAGE_KEY: ${AZURE_LANGUAGE_KEY:-}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "8501:8501"
+    environment:
+      API_BASE_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
