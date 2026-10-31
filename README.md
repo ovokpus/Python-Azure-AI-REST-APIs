@@ -6,6 +6,10 @@ A small FastAPI service and a Streamlit UI for two jobs: score sentiment and pul
 
 ---
 
+## Business case
+
+Hotels, retailers and service businesses collect more reviews and scanned forms than anyone has time to read. This workbench puts Azure AI Language sentiment and key phrases, plus local OCR, behind one small API and a Streamlit UI, so reviews can be triaged and images turned into text. At small volumes it fits mostly inside Azure's free monthly allowance. [docs/BUSINESS_CASE.md](docs/BUSINESS_CASE.md) covers the use cases, an illustrative ROI model and the limits.
+
 ## What you can do with it
 
 - Paste a review (or a whole pile of them) and see sentiment, confidence, and key phrases.
