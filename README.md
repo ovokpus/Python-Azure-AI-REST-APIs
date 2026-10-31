@@ -1,6 +1,6 @@
-<p align="center"><img src="assets/banner.jpg" alt="Braided cables plugged into brass sockets on a dark patch panel" width="100%"></p>
-
 # Text & OCR Workbench
+
+<p align="center"><img src="assets/banner.jpg" alt="Braided cables plugged into brass sockets on a dark patch panel" width="100%"></p>
 
 A small FastAPI service and a Streamlit UI for two jobs: score sentiment and pull key phrases with **Azure AI Language**, and read text out of images with **Tesseract**. Both run on your laptop with Docker Compose. Azure keys live in a `.env` file that is never committed. If those keys are missing, the app still boots and tells you exactly what to set.
 
