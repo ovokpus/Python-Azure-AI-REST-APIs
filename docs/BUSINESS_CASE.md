@@ -39,7 +39,7 @@ These figures are **illustrative assumptions**, apart from the free allowance.
 | Features per review (sentiment + key phrases) | 2 | Design of the repo |
 | Text records a month | 6,000 | 3,000 × 2. That is 1,000 above the 5,000 free records ([Azure](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-service/)). |
 | Analyst minutes to read and tag one review by hand | 1 | Assumption |
-| Analyst hourly cost | US$49 | BLS May 2024 median for compliance officers, $37.70 an hour, used as a proxy for an office analyst ([BLS](https://www.bls.gov/ooh/business-and-financial/compliance-officers.htm)). Multiplied by an assumed 1.3. |
+| Analyst hourly cost | US$49 | BLS May 2024 median for compliance officers, $37.70 an hour, used as a proxy for an office analyst ([BLS](https://www.bls.gov/news.release/archives/ocwage_04022025.pdf)). Multiplied by an assumed 1.3. |
 
 Labour avoided: 3,000 min = 50 hours a month, about **US$29,000 a year**, against the cost of the 1,000 paid records a month (check your rate) and App Service hosting. In practice an analyst still reads the flagged reviews, so count only the triage time as saved.
 
@@ -61,4 +61,4 @@ Labour avoided: 3,000 min = 50 hours a month, about **US$29,000 a year**, agains
 ## Sources
 
 - Microsoft Azure, AI Language pricing: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-service/
-- U.S. Bureau of Labor Statistics, Compliance Officers: https://www.bls.gov/ooh/business-and-financial/compliance-officers.htm
+- U.S. Bureau of Labor Statistics, OEWS May 2024 (Compliance Officers): https://www.bls.gov/news.release/archives/ocwage_04022025.pdf
